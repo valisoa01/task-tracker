@@ -1,0 +1,41 @@
+const fs = require('fs');
+
+const FILE  = 'tasks.json';
+const command = process.argv[2];
+const arg1 = process.argv[3];
+const arg2 = process.argv[4];
+
+const loadTasks = () => {
+	if(!fs.existsSync(FILE)) {
+		fs.writeFileSync(FILE, JSON.stringify([]));
+	}
+
+	const data = fs.readFileSync(FILE);
+	return JSON.parse(data);
+}
+
+const saveTasks = (tasks) => {
+	fs.writeFileSync(FILE, JSON.stringify(tasks, null, 2));
+}
+
+
+if(command === 'add') {
+	const descrition = arg1;
+
+	if (!descrition) {
+		console.log("Error: description required");
+		return;
+		
+	}
+	const tasks = loadTasks();
+
+	const newTask = {
+		id: tasks.length + 1,
+		descrition,
+		status: "todo",
+		createdAt: new Date(),
+		updatedAt : new Date()
+	};
+	tasks.push(newTask);
+	saveTasks(tasks);
+}
