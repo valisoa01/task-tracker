@@ -39,3 +39,22 @@ if(command === 'add') {
 	tasks.push(newTask);
 	saveTasks(tasks);
 }
+if(command == 'update') {
+	const id = parseInt(arg1);
+	const status = arg2;
+	
+	if (!id || !status) {
+		console.log("Error: id and status required");
+		return;
+	}
+	const tasks = loadTasks();
+	const task = tasks.find(t => t.id === id);
+	if (!task) {
+		console.log("Error: task not found");
+		return;
+	}
+	task.status = status;
+	task.updatedAt = new Date();
+	saveTasks(tasks);
+	
+}
