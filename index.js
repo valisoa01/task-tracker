@@ -20,9 +20,9 @@ const saveTasks = (tasks) => {
 
 
 if(command === 'add') {
-	const descrition = arg1;
+	const description = arg1;
 
-	if (!descrition) {
+	if (!description) {
 		console.log("Error: description required");
 		return;
 		
@@ -31,7 +31,7 @@ if(command === 'add') {
 
 	const newTask = {
 		id: tasks.length + 1,
-		descrition,
+		descrition: description,
 		status: "todo",
 		createdAt: new Date(),
 		updatedAt : new Date()
@@ -70,7 +70,7 @@ if(command == 'delete')
 	}
 	const tasks = loadTasks();
 	const taskIndex = tasks.findIndex(t => t.id == id);
-	if (!taskIndex == -1) {
+	if (!taskIndex === -1) {
 		console.log("Error: task not found");
 		return;
 	}
