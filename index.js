@@ -38,6 +38,8 @@ if(command === 'add') {
 	};
 	tasks.push(newTask);
 	saveTasks(tasks);
+	console.log(`Task  add successfully`);
+	
 }
 if(command == 'update') {
 	const id = parseInt(arg1);
@@ -56,5 +58,24 @@ if(command == 'update') {
 	task.status = status;
 	task.updatedAt = new Date();
 	saveTasks(tasks);
+	console.log(`Task ${id} updated successfully`);
 	
+}
+if(command == 'delete')
+{
+	const id = parseInt(arg1);
+	if (!id) {
+		console.log("Error:id required");
+		return;
+	}
+	const tasks = loadTasks();
+	const taskIndex = tasks.findIndex(t => t.id == id);
+	if (!taskIndex == -1) {
+		console.log("Error: task not found");
+		return;
+	}
+	tasks.splice(taskIndex, 1);
+	saveTasks(tasks);
+	console.log(`Task ${id} deleted successfully`);
+
 }
